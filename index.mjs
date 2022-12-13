@@ -23,9 +23,22 @@ const renderUsers = () => {
     $table.innerHTML = html;
 }
 
+const setUsersListener = () => {
+    document.addEventListener("click", event => {
+        if(event.target.classList.contains("delete-user")) {
+           const userId = event.target.dataset.id;
+           const targetIndex = state.users.findIndex(user => user.id == userId)
+           state.users.splice(targetIndex, 1);
+           
+           renderUsers()
+        }
+    })
+}
+
 const init = async () => {
     await fetchUsers()
     renderUsers()
+    setUsersListener()
 }
 
 
